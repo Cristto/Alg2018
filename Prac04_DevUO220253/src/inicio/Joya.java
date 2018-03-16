@@ -3,12 +3,13 @@ package inicio;
 public class Joya {
 
 
+    private int id;
     private int peso;
     private double valor;
     private double heuristico;
 
-    public Joya(int peso, int valor) {
-
+    public Joya(int id, int peso, int valor) {
+        this.id= id;
         this.peso = peso;
         this.valor = valor;
         heuristico = calcularHeuristico();
@@ -36,6 +37,10 @@ public class Joya {
 
     public double getHeuristico() {
         return heuristico;
+    }
+
+    public String toString() {
+        return "["+id+", "+peso+"]";
     }
 
 }

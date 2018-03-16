@@ -7,8 +7,6 @@ import java.util.List;
 public class Impl {
 
     private int posicion; //posicion de un elemento de la lista para borrar
-    private List<Integer> pesos = new ArrayList<>();
-    double sumaTotal = 0;
 
     // saca el elemento con el mayor heuristico y lo borro para no tener lo despues
     public Joya nextElemento(List<Joya> lista) {
@@ -30,52 +28,6 @@ public class Impl {
         return aux;
         // System.out.println("heuristico "+ h +" "+ "peso "+ pesoAux + " " + "valor "+
         // valorAux);
-
-    }
-
-    public int calcularParticion(Joya elemento, int contador) {
-        //aqui hago la particion
-        //del ultimo elemento tomado resto el peso para igualarlo al peso maximo
-        //y con el peso obtenido lo multiplico al valor del objeto / peso anterior
-        int pesoAux;
-        double valorAux;
-        //resto el contador del peso maximo, luego al peso de la joya le resto
-        //el valor calculado anterior para que sea igual que le peso maximo
-        //y calculo el nuevo valor de la joya
-        pesoAux = contador - LeerFichero.getK();
-        elemento.setPeso(elemento.getPeso() - pesoAux);
-        valorAux = elemento.getPeso() * elemento.getHeuristico();
-        elemento.setValor(valorAux);
-
-        imprimirSolucion(elemento);
-        return pesoAux;
-    }
-
-    public void imprimirSolucion(Joya elemento) {
-        // aqui saco el resultado y elimino cada elemento de la lista que valga
-        //saco un array de pesos y la suma de los valores
-        pesos.add(elemento.getPeso());
-
-        System.out.println("h: "+elemento.getHeuristico());
-
-        System.out.print("pesos: ");
-        System.out.print("(");
-        for (Integer re : pesos) {
-            System.out.print(re + ", ");
-        }
-        System.out.println(")");
-
-        sumaTotal += elemento.getValor();
-        System.out.println("valor final: " + sumaTotal);
-
-        System.out.println("/////////////////////////");
-    }
-
-    public boolean haySolucion(int count){
-        if (count == LeerFichero.getK())
-            return true;
-        else
-            return false;
 
     }
 
@@ -138,15 +90,10 @@ public class Impl {
 
     public List<Joya> listaOrdenadaSeleccion(List<Joya> lista){
 
-        int tam = LeerFichero.getElementos();
-        Joya[] listaAux = new Joya[tam];
-        List<Joya> res = new ArrayList<>();
-
-        for (int i = 0; i < tam; i++) {
-            listaAux[i] = lista.get(i);
-        }
-
-        seleccion(listaAux);
+        int tam = LeerBotin.getElementos();
+        Joya[] listaAux= new Joya[tam];
+        listaAux= lista.toArray(listaAux);
+        List<Joya> res= new ArrayList<Joya>();
 
         for (int i = tam-1; i >= 0; i--) {
             res.add(listaAux[i]);

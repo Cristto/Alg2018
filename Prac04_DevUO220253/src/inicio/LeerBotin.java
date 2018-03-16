@@ -1,5 +1,7 @@
 package inicio;
 
+import devoradores.Devorador1;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,12 +10,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LeerFichero {
+public class LeerBotin {
 
     private static int k;
     private static int elementos;
 
-    public List<Joya> leerBotin(String nombre) {
+
+    public static void main(String[] args) {
+
+        String nombre = "src/botin02.txt";
+        List<Joya> lista = leerBotin(nombre);
+
+        Devorador1 d1 = new Devorador1();
+        d1.dev(lista);
+        //Devorador2 d2 = new Devorador2(lista);
+
+       /* Impl i  = new Impl();
+
+        i.listaOrdenadaSeleccion(lista);
+        for (int j = 0; j < lista.size(); j++) {
+            System.out.print(lista.get(j).getHeuristico()+ " , ");
+        }*/
+
+    }
+
+    public static List<Joya> leerBotin(String nombre) {
 
         List<Joya> aux = new ArrayList<>();
         try {
@@ -28,7 +49,7 @@ public class LeerFichero {
             for (int i = 0; i < elementos; i++) {
                 String linea = bufferreader.readLine();
                 String campos[] = linea.split(" ");
-                Joya producto = new Joya(
+                Joya producto = new Joya(i,
                         Integer.parseInt(campos[0]),
                         Integer.parseInt(campos[1]));
                 //aux[i] = producto;
@@ -51,4 +72,6 @@ public class LeerFichero {
     public static int getElementos() {
         return elementos;
     }
+
+
 }
