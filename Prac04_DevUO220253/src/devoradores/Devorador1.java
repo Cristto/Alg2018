@@ -1,6 +1,6 @@
 package devoradores;
 
-import inicio.Impl;
+import inicio.Impl_1;
 import inicio.Joya;
 import inicio.LeerBotin;
 
@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Devorador1 {
 
-    Impl impl = new Impl();
-    private List<Joya> pesos = new ArrayList<>();  //
+    Impl_1 impl1 = new Impl_1();
+    private List<Joya> pesos = new ArrayList<>();
     double sumaTotal = 0;
 
     public void dev(List<Joya> lista) {
@@ -21,20 +21,20 @@ public class Devorador1 {
         while (!lista.isEmpty() && !haySolucion(pesoMochila)) {
             // eliminar aqui de la lista y fraccionar el ultimo
 
-            Joya joysSelec = impl.nextElemento(lista); //retorno la joya con mayor heuristico
-            pesoMochila += joysSelec.getPeso(); //sumo el peso de la joya al pesoMochila
+            Joya joyaSelec = impl1.nextElemento(lista); //retorno la joya con mayor heuristico
+            pesoMochila += joyaSelec.getPeso(); //sumo el peso de la joya al pesoMochila
 
             if (pesoMochila <= pesoMaximo) {
                 // aqui saco el resultado y elimino cada elemento de la lista que valga
                 //saco un array de pesos y la suma de los valores
-                pesos.add(joysSelec);
-                sumaTotal += joysSelec.getValor();
+                pesos.add(joyaSelec);
             }else {
-                int valor = calcularParticion(joysSelec,pesoMochila); //aqui parto el ultimo elemento
-                pesoMochila -= valor;
+                int pesoUltimaJoya = calcularParticion(joyaSelec,pesoMochila); //aqui parto el ultimo elemento
+                pesoMochila -= pesoUltimaJoya;
             }
-            imprimirSolucion(joysSelec);
-            lista.remove(impl.getPosicion()); //si no un atributo id en Joya
+            sumaTotal += joyaSelec.getValor();
+            imprimirSolucion(joyaSelec);
+            lista.remove(impl1.getPosicion()); //si no un atributo id en Joya
         }
 
         if(haySolucion(pesoMochila))

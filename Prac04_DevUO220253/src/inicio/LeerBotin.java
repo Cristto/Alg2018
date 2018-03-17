@@ -1,6 +1,8 @@
 package inicio;
 
 import devoradores.Devorador1;
+import devoradores.Devorador2;
+import devoradores.Devorador3;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -13,33 +15,26 @@ import java.util.List;
 public class LeerBotin {
 
     private static int k;
-    private static int elementos;
-
 
     public static void main(String[] args) {
 
-        String nombre = "src/botin02.txt";
+        String nombre = "src/botin01.txt";
         List<Joya> lista = leerBotin(nombre);
 
-        Devorador1 d1 = new Devorador1();
-        d1.dev(lista);
-        //Devorador2 d2 = new Devorador2(lista);
-
-       /* Impl i  = new Impl();
-
-        i.listaOrdenadaSeleccion(lista);
-        for (int j = 0; j < lista.size(); j++) {
-            System.out.print(lista.get(j).getHeuristico()+ " , ");
-        }*/
+        //Devorador1 d = new Devorador1();
+        //Devorador2 d = new Devorador2(lista);
+        Devorador3 d = new Devorador3(lista);
+        d.dev(lista);
 
     }
+
 
     public static List<Joya> leerBotin(String nombre) {
 
         List<Joya> aux = new ArrayList<>();
         try {
             BufferedReader bufferreader = new BufferedReader(new FileReader(nombre));
-            elementos = Integer.parseInt(bufferreader.readLine());
+            int elementos = Integer.parseInt(bufferreader.readLine());
             //Joya[] aux = new Joya[elementos];
 
 
@@ -63,15 +58,11 @@ public class LeerBotin {
             e.printStackTrace();
         }
         return aux;
+
     }
 
     public static int getK() {
         return k;
     }
-
-    public static int getElementos() {
-        return elementos;
-    }
-
 
 }

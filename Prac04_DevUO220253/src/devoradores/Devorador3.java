@@ -1,27 +1,53 @@
 package devoradores;
 
-import inicio.Impl_2;
 import inicio.Joya;
 import inicio.LeerBotin;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class Devorador2 {
+public class Devorador3 {
 
-    Impl_2 impl2 = new Impl_2();
     private List<Joya> pesos = new ArrayList<>();
     double sumaTotal = 0;
 
-    public Devorador2(List<Joya> l){
-        impl2.seleccion(l);
+    public Devorador3(List<Joya> l){
+
+        //Asi me deja usar el sort en una lista vacia
+        /*l.sort(new Comparator<Joya>() {
+            @Override
+            public int compare(Joya p1, Joya p2) {
+                if (p1.getHeuristico() > p2.getHeuristico()) {
+                    return -1;
+                } else if (p1.getHeuristico() < p2.getHeuristico()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });*/
+
+        //aqui optimizo el comparator pero antes quite el Collection
+        /*Collections.sort(l, new Comparator<Joya>() {
+            @Override
+            public int compare(Joya o1, Joya o2) {
+                return Double.compare(o2.getHeuristico(), o1.getHeuristico());
+
+            }
+        });*/
+
+        //usando una funcion Lambda de menor a mayor
+        l.sort((o1, o2) -> Double.compare(o2.getHeuristico(), o1.getHeuristico()));
+
     }
 
     public void dev(List<Joya> lista) {
 
         int pesoMaximo = LeerBotin.getK(); // peso maximo del fichero
         int pesoMochila = 0; // peso actual de la mochila
-        int joya = lista.size() - 1;
+        int joya = 0;
 
         while (!lista.isEmpty() && !haySolucion(pesoMochila)) {
 
@@ -39,7 +65,7 @@ public class Devorador2 {
             }
             sumaTotal += joyaSelec.getValor();
             imprimirSolucion(joyaSelec);
-            joya--;
+            joya++;
         }
 
         if(haySolucion(pesoMochila))
