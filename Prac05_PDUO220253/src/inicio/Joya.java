@@ -4,7 +4,7 @@ public class Joya {
 
     private int id;
     private int peso;
-    private double valor;
+    private int valor;
 
 
     public Joya(int id, int peso, int valor) {
@@ -22,11 +22,11 @@ public class Joya {
         this.peso = peso;
     }
 
-    public double getValor() {
+    public int getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(int valor) {
         this.valor = valor;
     }
 
