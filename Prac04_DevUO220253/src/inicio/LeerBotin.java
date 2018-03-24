@@ -21,10 +21,10 @@ public class LeerBotin {
         String nombre = "src/botin01.txt";
         List<Joya> lista = leerBotin(nombre);
 
-        //Devorador1 d = new Devorador1();
+        Devorador1 d = new Devorador1();
         //Devorador2 d = new Devorador2(lista);
-        Devorador3 d = new Devorador3(lista);
-        d.dev(lista);
+        //Devorador3 d = new Devorador3(lista);
+        d.dev(lista, k);
 
     }
 
@@ -61,8 +61,5 @@ public class LeerBotin {
 
     }
 
-    public static int getK() {
-        return k;
-    }
 
 }

@@ -43,13 +43,13 @@ public class Devorador3 {
 
     }
 
-    public void dev(List<Joya> lista) {
+    public void dev(List<Joya> lista, int pesoMaximo) {
 
-        int pesoMaximo = LeerBotin.getK(); // peso maximo del fichero
+        //int pesoMaximo = LeerBotin.getK(); // peso maximo del fichero
         int pesoMochila = 0; // peso actual de la mochila
         int joya = 0;
 
-        while (!lista.isEmpty() && !haySolucion(pesoMochila)) {
+        while (!lista.isEmpty() && !haySolucion(pesoMochila,pesoMaximo)) {
 
 
             Joya joyaSelec = lista.get(joya); //retorno la joya con mayor heuristico
@@ -60,7 +60,7 @@ public class Devorador3 {
                 //saco un array de pesos y la suma de los valores
                 pesos.add(joyaSelec);
             }else {
-                int pesoUltimaJoya = calcularParticion(joyaSelec,pesoMochila); //aqui parto el ultimo elemento
+                int pesoUltimaJoya = calcularParticion(joyaSelec,pesoMochila,pesoMaximo); //aqui parto el ultimo elemento
                 pesoMochila -= pesoUltimaJoya;
             }
             sumaTotal += joyaSelec.getValor();
@@ -68,13 +68,13 @@ public class Devorador3 {
             joya++;
         }
 
-        if(haySolucion(pesoMochila))
+        if(haySolucion(pesoMochila,pesoMaximo))
             System.out.println("Finaliza el primer devorador");
 
     }
 
-    public boolean haySolucion(int count){
-        if (count == LeerBotin.getK())
+    public boolean haySolucion(int count, int pesoMaximo){
+        if (count == pesoMaximo)
             return true;
         else
             return false;
@@ -97,7 +97,7 @@ public class Devorador3 {
         System.out.println("/////////////////////////");
     }
 
-    public int calcularParticion(Joya elemento, int contador) {
+    public int calcularParticion(Joya elemento, int contador, int pesoMaximo) {
         //aqui hago la particion
         //del ultimo elemento tomado resto el peso para igualarlo al peso maximo
         //y con el peso obtenido lo multiplico al valor del objeto / peso anterior
@@ -106,7 +106,7 @@ public class Devorador3 {
         //resto el contador del peso maximo, luego al peso de la joya le resto
         //el valor calculado anterior para que sea igual que le peso maximo
         //y calculo el nuevo valor de la joya
-        pesoAux = contador - LeerBotin.getK();
+        pesoAux = contador - pesoMaximo;
         elemento.setPeso(elemento.getPeso() - pesoAux);
         valorAux = elemento.getPeso() * elemento.getHeuristico();
         elemento.setValor(valorAux);
