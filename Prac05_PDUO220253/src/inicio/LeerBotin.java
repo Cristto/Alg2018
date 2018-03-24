@@ -14,11 +14,12 @@ public class LeerBotin {
 
 
     public static void main(String[] args) {
-        SolBotin sol = new SolBotin();
-        String texto = "src/botin03.txt";
+        String texto = "src/botin04.txt";
         Joya[] joya = leerBotin(texto);
+        SolBotin sol = new SolBotin();
         int[][] din = sol.solDinamico(joya, n, k);
-        sol.imprimir(din);
+        sol.imprimirMatriz(din);
+        sol.imprimirR();
     }
 
     private static Joya[] leerBotin(String nombre) {
@@ -46,4 +47,7 @@ public class LeerBotin {
         }
     }
 
+    public static int getN() {
+        return n;
+    }
 }
