@@ -32,9 +32,6 @@ public class SolBotin {
                         int v3 = a[i].getValor(); //guardamos el valor de la joya de esa fila
                         int v4 = v2 + v3; //este es el sengundo valor a comparar
 
-                        if(a[i].getPeso() == 2){
-                            System.out.println("hola");
-                        }
 
                         int max;
                         //Saco el mayor entre v1 y v4, si v1 es mas pequeño o igual cogemos v4 y si no v1
@@ -65,6 +62,7 @@ public class SolBotin {
     }
 
     public void imprimirR(){
+        System.out.println();
         System.out.print("r = [");
         for (int i = 1; i < r.length; i++) {
             System.out.print(r[i] + "\t");
