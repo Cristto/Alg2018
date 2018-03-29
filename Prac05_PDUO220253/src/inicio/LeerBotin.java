@@ -19,19 +19,21 @@ public class LeerBotin {
         SolBotin sol = new SolBotin();
         int[][] din = sol.solDinamico(joya, n, k);
         sol.imprimirMatriz(din);
+        sol.imprimirV(din, joya, n, k);
         sol.imprimirR();
+
     }
 
     private static Joya[] leerBotin(String nombre) {
 
-        Joya[] joya ;
+        Joya[] joya;
         try {
             BufferedReader bufferreader = new BufferedReader(new FileReader(nombre));
             n = Integer.parseInt(bufferreader.readLine());
-            joya = new Joya[n+1];
-            k=Integer.parseInt(bufferreader.readLine());
+            joya = new Joya[n + 1];
+            k = Integer.parseInt(bufferreader.readLine());
 
-            for (int i = 1; i < n+1; i++) {
+            for (int i = 1; i < n + 1; i++) {
                 String linea = bufferreader.readLine();
                 String campos[] = linea.split(" ");
                 Joya producto = new Joya(i,
@@ -49,5 +51,9 @@ public class LeerBotin {
 
     public static int getN() {
         return n;
+    }
+
+    public static int getK() {
+        return k;
     }
 }

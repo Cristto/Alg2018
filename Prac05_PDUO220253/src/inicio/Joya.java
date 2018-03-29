@@ -18,17 +18,15 @@ public class Joya {
         return peso;
     }
 
-    public void setPeso(int peso) {
-        this.peso = peso;
+    public int getId() {
+        return id;
     }
 
     public int getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
-        this.valor = valor;
-    }
+
 
 
     public String toString() {
