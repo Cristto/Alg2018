@@ -32,11 +32,6 @@ public class SolBotin {
                         int v3 = a[i].getValor(); //guardamos el valor de la joya de esa fila
                         int v4 = v2 + v3; //este es el sengundo valor a comparar
 
-<<<<<<< HEAD
-=======
-
-                        int max;
->>>>>>> 88d7d03142d86d6ecd5dd823d2af71033adfa82c
                         //Saco el mayor entre v1 y v4, si v1 es mas pequeño o igual cogemos v4 y si no v1
                         int max = v4 > v1 ? v4 : v1;
 
@@ -58,7 +53,6 @@ public class SolBotin {
         }
     }
 
-<<<<<<< HEAD
     public void imprimirV(int[][] a, Joya[] joya, int fila, int col) {
 
         int colAux = col;
@@ -81,10 +75,6 @@ public class SolBotin {
 
 
     public void imprimirR() {
-=======
-    public void imprimirR(){
-        System.out.println();
->>>>>>> 88d7d03142d86d6ecd5dd823d2af71033adfa82c
         System.out.print("r = [");
         for (int i = 1; i < r.length; i++) {
             System.out.print(r[i] + "\t");

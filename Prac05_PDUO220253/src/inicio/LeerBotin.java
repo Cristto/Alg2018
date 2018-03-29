@@ -14,6 +14,8 @@ public class LeerBotin {
 
 
     public static void main(String[] args) {
+
+
         String texto = "src/botin04.txt";
         Joya[] joya = leerBotin(texto);
         SolBotin sol = new SolBotin();
