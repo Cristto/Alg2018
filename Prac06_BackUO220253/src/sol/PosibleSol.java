@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PosibleSol {
 
@@ -14,63 +16,171 @@ public class PosibleSol {
     el 2 el numero de caracteres no alfabeticos con los que termina la clave
     siempre menor que el numero total
     el 15 es el numero de claves que saca
-    ///////////////////////////
-    Condiciones:
-    1. Solo pueden aparecer dos vocales seguidas si son diferentes
-    2. No puede haber ni tres vocales ni tres consonantes seguidas
-    3. Existe un conjunto de parejas de consonantes que pueden aparecer seguidas.
-    4. Los dos últimos caracteres son signos de puntuación o números.
-    * */
+
+     */
+
+    private List<String> parejasConsonantes = new ArrayList<String>();
+    private char[] str; //array abecedario
+    private char[] num; //array no abecedario
+    private char[] resFinal; //array donde van las contraseñas finales
+    private int totalElementos; //numero de elementos en total para formar la contraseña
+    //4. Los dos últimos caracteres son signos de puntuación o números.
+    private int elementosNoLetras; //numero de elementos que no son letras
+    //private boolean finalizado = false;
+    private int solucionesFinales; //numero de contraseñas para mostrar
+    private int contador; //contador que aumenta una unidad por contraseña formada
 
     /**
-     *
-     * @param parejas las parejas de consonantes
-     * @param letras las que puedo usar para generar la clave
-     * @param finales los numeros y signos usados al final para finalizar la clave
-     * @param inicio la primera letra para generar la clave o el primer elemento
-     * @param total el numero de caracteres totales para crear las claves
-     * @param numFinal son los numeros y signos permitidos en la generacion de claves
-     * @param salida el numero de claves finales que se crearan
+     * Constructor
+     * @param totalElementos numero de elementos que forma la contraseña
+     * @param elementosNoLetras numero de elementos que no son letras
+     * @param solucionesFinales numero de contraseñas ya formadas listas para mostrar
      */
-    public void GeneradorClave(List<String> parejas,
-                               String letras,
-                               String finales,
-                               int inicio,
-                               int total,
-                               int numFinal,
-                               int salida){
+    public PosibleSol(int totalElementos, int elementosNoLetras, int solucionesFinales) {
+        this.totalElementos = totalElementos;
+        this.elementosNoLetras = elementosNoLetras;
+        this.solucionesFinales = solucionesFinales;
+        contador = 0;
+        String abecedario = "abcdefghijklmnñopqrstuvwxyz";
+        str = abecedario.toCharArray();
+        String numeros = "0123456789.,;:¿?¡!()";
+        num = numeros.toCharArray();
+        resFinal = new char[totalElementos];
 
-        if(inicio == total)
-            GuardarClave();
-        else{
+    }
 
+
+    public void generadorClave(int nivel) {//nivel es una posicion, empieza en cero
+
+        //compruebo que nivel sea igual al total de elementos
+        //y contador no sea igual al numero de contraseñas creadas
+        if (nivel == totalElementos && contador != solucionesFinales) {
+            //finalizado = true;
+            contador++;
+            mostrarClave(resFinal); //muestro cada contraseña
+        }else {
+            int totalAux = totalElementos - elementosNoLetras;
+            char[] aux;
+            //si entra aqui es porque aun tengo letras que formar, barajo el array del abecedario
+            //y lo clono al array auxiliar
+            if(nivel < totalAux){
+                barajador(str);
+                aux = str.clone();
+            }else{
+                //si entra aqui es porque ya tengo las no letras que formar, barajo el array del  no abecedario
+                //y lo clono al array auxiliar
+                barajador(num);
+                aux = num.clone();
+            }
+            for (int i = 0; i < aux.length; i++) { //recorro el array ya barajado
+                char elemento = aux[i];
+                if(esValido(resFinal, elemento, nivel)){ //compruebo las condiciones
+                   resFinal[nivel] = elemento; //si cumple guardo el elemento en la posición de nivel
+                   generadorClave(nivel+1); //avanzamos al siguiente nivel
+                }
+            }
         }
     }
 
-    private void GuardarClave() {
+    /**
+     * Muestro las contraseñas ya creadas
+     * @param resFinal array con el resultado  final de contraseñas ya formadas
+     */
+    private void mostrarClave(char[] resFinal) {
+
+        for (int i = 0; i < resFinal.length; i++) {
+            System.out.print(resFinal[i]);
+        }
+        System.out.println();
     }
 
 
-    public List<String> leerFichero(String nombre) {
+    /**
+     * Condiciones:
+     1. Solo pueden aparecer dos vocales seguidas si son diferentes
+     2. No puede haber ni tres vocales ni tres consonantes seguidas
+     3. Existe un conjunto de parejas de consonantes que pueden aparecer seguidas.
 
-        List<String> aux = new ArrayList<String>();
+     * @param resFinal array donde se van guardando las contraseñas finales
+     * @param elemento la letra o no letra que se quiere comprobar
+     * @param nivel el nivel en el que estamos
+     * @return false si cumple alguna condición o true si no cumple ninguna
+     */
+    private boolean esValido(char[] resFinal, char elemento, int nivel) {
+
+        //Condicion 1.
+        if(nivel >= 1) {
+            if (esVocal(elemento)) {
+                if (elemento == resFinal[nivel - 1]) {
+                    return false;
+                }
+            }
+        }
+        //Condicion 2.
+        if(nivel >= 2){
+            if(esVocal(elemento) && esVocal(resFinal[nivel-1]) && esVocal(resFinal[nivel-2]))
+                return false;
+            if(esConsonante(elemento) && esConsonante(resFinal[nivel-1]) && esConsonante(resFinal[nivel-2]))
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * Compruebo que el elemento pasado por parámetro sea una vocal
+     * @param elemento letra o no letra
+     * @return true si es una vocal
+     */
+    private boolean esVocal(char elemento){
+        return elemento == 'a' || elemento == 'e' || elemento == 'i' || elemento == 'o' || elemento == 'u';
+    }
+
+    /**
+     * Compruebo si el elemento pasado por parámetro sea una consonante
+     * @param elemento letra o no letra
+     * @return true si es una consonante
+     */
+    private boolean esConsonante(char elemento){
+        return elemento != 'a' && elemento != 'e' && elemento != 'i' && elemento != 'o' && elemento != 'u';
+    }
+
+    /**
+     * Lee el fichero de las parejas de consonantes
+     * @param nombre el archivo de texto
+     */
+    public void leerFichero(String nombre) {
+
         try {
             BufferedReader bufferreader = new BufferedReader(new FileReader(nombre));
             for (int i = 0; i < nombre.length(); i++) {
                 String linea = bufferreader.readLine();
-                aux.add(linea);
+                parejasConsonantes.add(linea);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return aux;
+
+    }
+    //Fisher–Yates shuffle
+    private void barajador(char[] ar)
+    {
+        // If running on Java 6 or older, use `new Random()` on RHS here
+        Random rnd = ThreadLocalRandom.current();
+        for (int i = ar.length - 1; i > 0; i--)
+        {
+            int index = rnd.nextInt(i + 1);
+            // Simple swap
+            char a = ar[index];
+            ar[index] = ar[i];
+            ar[i] = a;
+        }
     }
 
     public static void main(String[] args) {
         String nombre = "src/consonantes.txt";
-        String str = "abcdefghijklmnñopqrstuvwxyz";
-        String num = "0123456789.,;:¿?¡!()";
-        PosibleSol sol = new PosibleSol();
+
+        PosibleSol sol = new PosibleSol(6,2, 15);
+        sol.generadorClave(0);
 
     }
 }
