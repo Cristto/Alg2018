@@ -3,9 +3,7 @@ package sol;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -60,10 +58,10 @@ public class PosibleSol {
 
         //compruebo que nivel sea igual al total de elementos
         //y contador no sea igual al numero de contraseñas creadas
-        if (nivel == totalElementos/* && contador != solucionesFinales*/) {
+        if (nivel == totalElementos) {
             finalizado = true;
             contador++;
-            mostrarClave(resFinal); //muestro cada contraseña
+            //mostrarClave(resFinal); //muestro cada contraseña
 
         } else {
             int totalAux = totalElementos - elementosNoLetras;
@@ -138,11 +136,11 @@ public class PosibleSol {
         }
         //Condicion 3.
         if (nivel >= 1) {
-            if (!esVocal(elemento) && !esConsonante(elemento)) //arreglar la regla esConsonante
+            if (!esVocal(elemento) && !esConsonante(elemento)) //se comprueba que ni es voca ni es consonante
                 return true;
-            if (esConsonante(elemento) && esConsonante(resFinal[nivel - 1])) {//cumple siempre esta pq no es una vocal
-                if (!parejasConsonantes.contains(String.valueOf(resFinal[nivel-1]) + String.valueOf(elemento))) { //aqui nunca encuentra la pareja
-                    return false; //siempre retorna false
+            if (esConsonante(elemento) && esConsonante(resFinal[nivel - 1])) {
+                if (!parejasConsonantes.contains(String.valueOf(resFinal[nivel-1]) + String.valueOf(elemento))) {
+                    return false;
                 }
             }
         }
@@ -198,12 +196,8 @@ public class PosibleSol {
 
     }
 
-    private boolean isFinalizado() {
-        return finalizado;
-    }
 
-
-    //Fisher–Yates shuffle
+    //Fisher–Yates barajador
     private void barajador(char[] ar) {
         // If running on Java 6 or older, use `new Random()` on RHS here
         Random rnd = ThreadLocalRandom.current();
@@ -217,8 +211,30 @@ public class PosibleSol {
     }
 
     public static void main(String[] args) {
-        PosibleSol sol = new PosibleSol(6, 2, 15);
-        sol.generadorClave(0);
+        long t1,t2;
+
+
+        /*NOTA:  descomentar este método en generadorClave:
+                mostrarClave(resFinal);
+                para ver las claves resultantes
+         */
+
+        int nVeces=10000;
+
+        for (int n = 2; n <= 512; n*=2) {
+
+            t1 = System.currentTimeMillis();
+
+            for (int repeticiones = 0; repeticiones <= nVeces; repeticiones++) {
+                PosibleSol sol = new PosibleSol(n, 2, 15);
+                sol.generadorClave(0);
+            }
+
+            t2 = System.currentTimeMillis();
+
+            System.out.println("elementos: "+ n + " , " + (t2-t1));
+        }
+
 
     }
 }
