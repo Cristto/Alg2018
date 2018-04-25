@@ -1,0 +1,63 @@
+si suma siempre es O(n) i++ en el bucle
+si multiplica es O(log n) i*=2 en el bucle
+
+n(1+n)/2=n+n^2/2
+
+o(n+n^2/2) -> o(n^2)
+
+nveces =1 son milisegundos
+nveces = 1000 son microsegundos
+
+////////////////////////////
+
+poner en el documento de backtracking, explicar si los tiempos son
+lineales pq el algoritmo es asi, si es exponencial pq el algo.....
+
+NOTAS RAMIFICA Y PODA
+
+mismo numero de repartidores que de pedidos
+y nos llegan los costes
+
+tienes 4 pedidos y se lo asignas a los 4 repartidores
+cada columna del fichero son pedidos, segunda fila a un repartidor
+se le asignan 4 pedidos
+
+llevar la cuenta de que pedidos estan asignados
+
+la suma total del coste total de cada repartidor
+
+siempre matriz cuadrada
+
+los malos siempre quedan para atras y los buenos para alante
+problema de optimizacion, dame el minimo
+
+1. Estructura de datos-variable (list,arrayList,array...)
+1.1 Calcular el heuristico estado[]
+1.2 estado valido
+2. Heuristico de ramificacion
+3. Heuristico de poda (cota poda) 
+3.1 podemos calcularla a priori
+
+la cola de prioridad nos los ordena
+
+el heuristico de ramificacion nos ordena para los mejores y los peores
+el heuristico de poda para no tener que explorar todo el arbol para buscar
+la mejor como se hacia en backtracking
+
+para un problema de poda necesitamos tb el h de poda
+
+comparamos el valor del h de ramificacion con el valor de h de poda
+
+si lo de ramificacion es peor que los que nos da lo de poda ya lo quitamos
+de la cola de prioridad 
+
+
+la cota de poda se puede calcular antes de lanzar el algoritmo si se puede calcular
+una solucion valida
+calcularla con la diagonal principal (suma)
+y la diagonal inversa y cogemos el minimo
+
+primera solucion, se asignaria como cota de poda, algoritmo de la mochila
+
+
+
