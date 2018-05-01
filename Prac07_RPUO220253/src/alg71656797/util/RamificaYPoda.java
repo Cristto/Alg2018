@@ -1,4 +1,4 @@
-﻿// ESQUEMA GENERAL RAMIFICA Y PODA
+// ESQUEMA GENERAL RAMIFICA Y PODA
 
 package alg71656797.util;
 
@@ -31,7 +31,7 @@ public class RamificaYPoda
 	 * M�todo principal que implementa la ejecuci�n de la t�cnica Ramifica y poda
 	 * @param nodoRaiz	Le pasamos el nodo ra�z para el problema que queremos resolver
 	 */
-	private void ramificaYPoda(Estado nodoRaiz) 
+	protected void ramificaYPoda(Estado nodoRaiz)
 	{ 
 		cola.insertar(nodoRaiz); 
 
